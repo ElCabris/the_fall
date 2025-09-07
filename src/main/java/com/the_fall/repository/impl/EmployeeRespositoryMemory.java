@@ -38,6 +38,16 @@ public class EmployeeRespositoryMemory implements IEmployeeRepository {
   }
 
   @Override
+  public void delete(int id) {
+    employees.removeIf(emp -> emp.getId() == id);
+  }
+
+  @Override
+  public List<Employee> getAll() {
+    return new ArrayList<>(employees);
+  }
+
+  @Override
   public Employee getById(int id) {
     return employees.stream().filter(emp -> emp.getId() == id).findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Employee with ID " + id + " not found"));
