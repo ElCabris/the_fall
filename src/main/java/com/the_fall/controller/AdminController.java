@@ -1,15 +1,16 @@
 package com.the_fall.controller;
 
 import java.util.List;
+import com.the_fall.model.Admin;
 import com.the_fall.model.Employee;
 import com.the_fall.repository.IEmployeeRepository;
 
 public class AdminController {
 
     private final IEmployeeRepository employeeRepo;
-    private final com.the_fall.model.Admin adminModel;
+    private final Admin adminModel;
 
-    public AdminController(IEmployeeRepository employeeRepo, com.the_fall.model.Admin adminModel) {
+    public AdminController(IEmployeeRepository employeeRepo, Admin adminModel) {
         this.employeeRepo = employeeRepo;
         this.adminModel = adminModel;
     }
@@ -47,5 +48,17 @@ public class AdminController {
         adminModel.makePayment(amount);
         e.deposit(amount);
         employeeRepo.update(e);
+    }
+
+    public Employee authenticateEmployee(int id, String password) {
+        try {
+            Employee employee = employeeRepo.getById(id);
+            if (employee != null && employee.verifyPassword(password)) {
+                return employee;
+            }
+        } catch (IllegalArgumentException e) {
+            // Empleado no encontrado
+        }
+        return null;
     }
 }
