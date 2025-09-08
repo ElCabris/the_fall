@@ -64,12 +64,11 @@ public class AdminMenu implements IMenu {
                         String name = sc.nextLine();
                         System.out.print("Ingrese la contraseña: ");
                         String password = sc.nextLine();
-                        admin.registerEmployee(new Employee(id, name, password)); 
+                        admin.registerEmployee(new Employee(id, name, password));
                         System.out.println("\nEmpleado registrado.");
                         break;
                     }
                 }
-
                 case 2 -> {
                     List<Employee> employees = admin.listEmployees();
                     if (employees.isEmpty()) {
@@ -169,9 +168,14 @@ public class AdminMenu implements IMenu {
                             continue;
                         }
                         double amount = Double.parseDouble(amountInput);
-                        admin.payEmployee(id, amount);
-                        System.out.println("\nPago realizado. 💰");
-                        break;
+                        try {
+                            admin.payEmployee(id, amount);
+                            System.out.println("\nPago realizado. 💰");
+                            break;
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("\n❌ Error: " + e.getMessage());
+                            // Permite reintentar con un monto diferente
+                        }
                     }
                 }
                 case 8 -> {

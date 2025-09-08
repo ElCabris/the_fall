@@ -9,6 +9,7 @@ public class AdminController {
 
     private final IEmployeeRepository employeeRepo;
     private final Admin adminModel;
+    private static final double Minimum_Wage = 1600000.0; 
 
     public AdminController(IEmployeeRepository employeeRepo, Admin adminModel) {
         this.employeeRepo = employeeRepo;
@@ -44,6 +45,9 @@ public class AdminController {
     }
 
     public void payEmployee(int id, double amount) {
+        if (amount < Minimum_Wage) {
+            throw new IllegalArgumentException("El monto del pago debe ser mayor o igual al salario mínimo colombiano (" + Minimum_Wage + ")");
+        }
         Employee e = employeeRepo.getById(id);
         adminModel.makePayment(amount);
         e.deposit(amount);
@@ -57,7 +61,6 @@ public class AdminController {
                 return employee;
             }
         } catch (IllegalArgumentException e) {
-            // Empleado no encontrado
         }
         return null;
     }
