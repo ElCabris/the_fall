@@ -1,7 +1,7 @@
-package src.main.java.com.the_fall.service.impl;
+package com.the_fall.service.impl;
 
-import src.main.java.com.the_fall.model.Employee;
-import src.main.java.com.the_fall.service.IPaymantService;
+import com.the_fall.model.Employee;
+import com.the_fall.service.IPaymantService;
 
 public class PaymantServiceBasic implements IPaymantService {
 

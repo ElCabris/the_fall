@@ -1,4 +1,4 @@
-package src.main.java.com.the_fall.model;
+package com.the_fall.model;
 
 public class Employee {
   private int id;

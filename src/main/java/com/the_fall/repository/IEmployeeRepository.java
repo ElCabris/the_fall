@@ -1,6 +1,6 @@
-package src.main.java.com.the_fall.repository;
+package com.the_fall.repository;
 
-import src.main.java.com.the_fall.model.Employee;
+import com.the_fall.model.Employee;
 import java.util.List;
 
 public interface IEmployeeRepository {

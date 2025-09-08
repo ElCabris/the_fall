@@ -1,11 +1,11 @@
-package src.main.java.com.the_fall.repository.impl;
+package com.the_fall.repository.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import src.main.java.com.the_fall.model.Employee;
-import src.main.java.com.the_fall.repository.IEmployeeRepository;
+import com.the_fall.model.Employee;
+import com.the_fall.repository.IEmployeeRepository;
 
 public class EmployeeRespositoryMemory implements IEmployeeRepository {
   private final List<Employee> employees;

@@ -1,11 +1,11 @@
-package src.main.java.com.the_fall.controller;
+package com.the_fall.controller;
 
 import java.util.List;
 
-import src.main.java.com.the_fall.model.Employee;
-import src.main.java.com.the_fall.repository.IEmployeeRepository;
-import src.main.java.com.the_fall.repository.ISaleRepository;
-import src.main.java.com.the_fall.service.IPaymantService;
+import com.the_fall.model.Employee;
+import com.the_fall.repository.IEmployeeRepository;
+import com.the_fall.repository.ISaleRepository;
+import com.the_fall.service.IPaymantService;
 
 public class Admin {
 
