@@ -1,6 +1,6 @@
 package com.the_fall.ui.menus;
 
-import com.the_fall.controller.Admin;
+import com.the_fall.controller.AdminController;
 import com.the_fall.model.Employee;
 import com.the_fall.ui.interfaces.IMenu;
 import com.the_fall.ui.utils.Validators;
@@ -11,9 +11,9 @@ import java.util.Scanner;
 public class AdminMenu implements IMenu {
 
     private final Scanner sc = new Scanner(System.in);
-    private final Admin admin; 
+    private final AdminController admin; 
 
-    public AdminMenu(Admin admin) {
+    public AdminMenu(AdminController admin) {
         this.admin = admin;
     }
 
@@ -29,7 +29,8 @@ public class AdminMenu implements IMenu {
             5. Ingresar Venta
             6. Consultar Ventas Totales
             7. Pagar Empleado
-            8. Volver al Menú Principal
+            8. Consultar saldo actual
+            9. Volver al Menú Principal
         """);
     }
 
@@ -40,7 +41,7 @@ public class AdminMenu implements IMenu {
             System.out.print("Seleccione una opción: ");
             String input = sc.nextLine();
 
-            List<Integer> opcionesValidas = List.of(1, 2, 3, 4, 5, 6, 7, 8);
+            List<Integer> opcionesValidas = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
             if (!Validators.readValidOption(opcionesValidas, input)) {
                 System.out.println("\nOpción inválida, intente de nuevo.\n");
@@ -159,6 +160,10 @@ public class AdminMenu implements IMenu {
                     }
                 }
                 case 8 -> {
+                    double saldoActual = admin.getCurrentBalance();
+                    System.out.println("💼 Saldo actual del administrador: " + saldoActual);
+                }
+                case 9 -> {
                     System.out.println("\nVolviendo al menú principal... ⬅️ ");
                     return;
                 }
