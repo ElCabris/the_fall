@@ -1,6 +1,6 @@
 package com.the_fall.ui.menus;
 
-import com.the_fall.controller.Admin;
+import com.the_fall.controller.AdminController;
 import com.the_fall.model.Employee;
 import com.the_fall.ui.interfaces.IMenu;
 import com.the_fall.ui.utils.Validators;
@@ -11,9 +11,9 @@ import java.util.Scanner;
 public class PrincipalMenu implements IMenu {
 
     private final Scanner sc = new Scanner(System.in);
-    private final Admin admin; 
+    private final AdminController admin; 
 
-    public PrincipalMenu(Admin admin) {
+    public PrincipalMenu(AdminController admin) { // Cambiado de Admin a AdminController
         this.admin = admin;
     }
 
@@ -49,7 +49,6 @@ public class PrincipalMenu implements IMenu {
             switch (opcion) {
                 case 1 -> new AdminMenu(admin).handle();
                 case 2 -> {
-                    // Solicitar login de empleado, de momento esta hardcodeado
                     Employee demoEmployee = new Employee(1, "Empleado Demo");
                     new EmployeeMenu(demoEmployee).handle();
                 }
