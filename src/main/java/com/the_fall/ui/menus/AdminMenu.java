@@ -62,11 +62,14 @@ public class AdminMenu implements IMenu {
                         int id = Integer.parseInt(idInput);
                         System.out.print("Ingrese el nombre: ");
                         String name = sc.nextLine();
-                        admin.registerEmployee(new Employee(id, name));
+                        System.out.print("Ingrese la contraseña: ");
+                        String password = sc.nextLine();
+                        admin.registerEmployee(new Employee(id, name, password)); 
                         System.out.println("\nEmpleado registrado.");
                         break;
                     }
                 }
+
                 case 2 -> {
                     List<Employee> employees = admin.listEmployees();
                     if (employees.isEmpty()) {
@@ -96,7 +99,19 @@ public class AdminMenu implements IMenu {
                         }
                         System.out.print("Nuevo nombre: ");
                         String name = sc.nextLine();
-                        admin.updateEmployee(new Employee(id, name));
+                        System.out.print("Nueva contraseña (dejar vacío para mantener la actual): ");
+                        String password = sc.nextLine();
+                        
+                        Employee existingEmployee = admin.listEmployees().stream()
+                            .filter(e -> e.getId() == id)
+                            .findFirst()
+                            .get();
+                            
+                        if (password.isEmpty()) {
+                            password = existingEmployee.getPassword();
+                        }
+                        
+                        admin.updateEmployee(new Employee(id, name, password));
                         System.out.println("\nEmpleado actualizado. ✏️");
                         break;
                     }
