@@ -1,4 +1,4 @@
-package com.the_fall.ui.menus.cases;
+package com.the_fall.ui.menus.cases.employee_cases;
 
 public class EmployeeExitCase {
     public static void execute() {

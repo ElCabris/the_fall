@@ -3,9 +3,7 @@ package com.the_fall.ui.menus;
 import com.the_fall.model.Employee;
 import com.the_fall.ui.interfaces.IMenu;
 import com.the_fall.ui.utils.Validators;
-import com.the_fall.ui.menus.cases.EmployeeCheckBalanceCase;
-import com.the_fall.ui.menus.cases.EmployeeExitCase;
-import com.the_fall.ui.menus.cases.EmployeeWithdrawMoneyCase;
+import com.the_fall.ui.menus.cases.employee_cases.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -48,10 +46,7 @@ public class EmployeeMenu implements IMenu {
             switch (opcion) {
                 case 1 -> EmployeeCheckBalanceCase.execute(employee);
                 case 2 -> EmployeeWithdrawMoneyCase.execute(employee, sc);
-                case 3 -> {
-                    EmployeeExitCase.execute();
-                    return;
-                }
+                case 3 -> { EmployeeExitCase.execute(); return; }
                 default -> System.out.println("   Opción no reconocida. ⚠️");
             }
         }

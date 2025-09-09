@@ -1,4 +1,4 @@
-package com.the_fall.ui.menus.cases;
+package com.the_fall.ui.menus.cases.employee_cases;
 
 import com.the_fall.model.Employee;
 
