@@ -4,6 +4,7 @@ import com.the_fall.controller.AdminController;
 import com.the_fall.model.Employee;
 import com.the_fall.ui.interfaces.IMenu;
 import com.the_fall.ui.utils.Validators;
+import com.the_fall.ui.menus.cases.admin_cases.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -51,141 +52,15 @@ public class AdminMenu implements IMenu {
             int opcion = Integer.parseInt(input);
 
             switch (opcion) {
-                case 1 -> {
-                    while (true) {
-                        System.out.print("   Ingrese el ID: ");
-                        String idInput = sc.nextLine();
-                        if (!Validators.readValidInt(idInput)) {
-                            System.out.println("\n   ID inválido, debe ser un entero positivo.");
-                            continue;
-                        } 
-                        int id = Integer.parseInt(idInput);
-                        System.out.print("   Ingrese el nombre: ");
-                        String name = sc.nextLine();
-                        System.out.print("   Ingrese la contraseña: ");
-                        String password = sc.nextLine();
-                        admin.registerEmployee(new Employee(id, name, password));
-                        System.out.println("\n   Empleado registrado.");
-                        break;
-                    }
-                }
-                case 2 -> {
-                    List<Employee> employees = admin.listEmployees();
-                    if (employees.isEmpty()) {
-                        System.out.println("\n   No hay empleados registrados.");
-                    }
-                    else {
-                        employees.forEach(e -> System.out.println(e.getId() 
-                               + " - " 
-                               + e.getName() 
-                               + " (Saldo: " 
-                               + e.getBalace() 
-                               + ")"));
-                    }
-                }
-                case 3 -> {
-                    while (true) {
-                        System.out.print("   Ingrese el ID del empleado a actualizar: ");
-                        String idInput = sc.nextLine();
-                        if (!Validators.readValidInt(idInput)) {
-                            System.out.println("\n   ID inválido, debe ser un entero positivo.");
-                            continue;
-                        }
-                        int id = Integer.parseInt(idInput);
-                        if (admin.listEmployees().stream().noneMatch(e -> e.getId() == id)) {
-                            System.out.println("\n   No existe un empleado con ese ID.");
-                            break;
-                        }
-                        System.out.print("   Nuevo nombre: ");
-                        String name = sc.nextLine();
-                        System.out.print("   Nueva contraseña (dejar vacío para mantener la actual): ");
-                        String password = sc.nextLine();
-                        
-                        Employee existingEmployee = admin.listEmployees().stream()
-                            .filter(e -> e.getId() == id)
-                            .findFirst()
-                            .get();
-                            
-                        if (password.isEmpty()) {
-                            password = existingEmployee.getPassword();
-                        }
-                        
-                        admin.updateEmployee(new Employee(id, name, password));
-                        System.out.println("\n   Empleado actualizado. ✏️");
-                        break;
-                    }
-                }
-                case 4 -> {
-                    while (true) {
-                        System.out.print("   Ingrese el ID del empleado a eliminar: ");
-                        String idInput = sc.nextLine();
-                        if (!Validators.readValidInt(idInput)) {
-                            System.out.println("\n   ID inválido, debe ser un entero positivo.");
-                            continue;
-                        }
-                        int id = Integer.parseInt(idInput);
-                        if (admin.listEmployees().stream().noneMatch(e -> e.getId() == id)) {
-                            System.out.println("\n   No existe un empleado con ese ID.");
-                            break;
-                        }
-                        admin.deleteEmployee(id);
-                        System.out.println("\n   Empleado eliminado. 🗑️");
-                        break;
-                    }
-                }
-                case 5 -> {
-                    while (true) {
-                        System.out.print("   Ingrese monto de la venta: ");
-                        String amountInput = sc.nextLine();
-                        if (!Validators.readValidDouble(amountInput)) {
-                            System.out.println("\n   Monto inválido, debe ser un número real positivo. \n");
-                            break;
-                        }
-                        double amount = Double.parseDouble(amountInput);
-                        admin.addSale(amount);
-                        System.out.println("\n   Venta registrada. 💵");
-                        break;
-                    }
-                }
-                case 6 -> System.out.println("   Total ventas: " + admin.getTotalSale() + " 📊");
-                case 7 -> {
-                    while (true) {
-                        System.out.print("   Ingrese ID del empleado: ");
-                        String idInput = sc.nextLine();
-                        if (!Validators.readValidInt(idInput)) {
-                            System.out.println("\n   ID inválido, debe ser un entero positivo.");
-                            continue;
-                        }
-                        int id = Integer.parseInt(idInput);
-                        if (admin.listEmployees().stream().noneMatch(e -> e.getId() == id)) {
-                            System.out.println("\n   No existe un empleado con ese ID.");
-                            break;
-                        }
-                        System.out.print("   Monto a pagar: ");
-                        String amountInput = sc.nextLine();
-                        if (!Validators.readValidDouble(amountInput)) {
-                            System.out.println("\n   Monto inválido, debe ser un número real positivo.");
-                            continue;
-                        }
-                        double amount = Double.parseDouble(amountInput);
-                        try {
-                            admin.payEmployee(id, amount);
-                            System.out.println("\n   Pago realizado. 💰");
-                            break;
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("\n   Error: " + e.getMessage() + " ❌");
-                            // Permite reintentar con un monto diferente
-                        }
-                    }
-                }
-                case 8 -> {
-                    double saldoActual = admin.getCurrentBalance();
-                    System.out.println("   Saldo actual del administrador: " + saldoActual + " 💼");
-                }
-                case 9 -> {
-                    System.out.println("\n   Volviendo al menú principal... ⬅️");
-                    return;
-                }
+                case 1 -> AdminRegisterEmployeeCase.execute(admin, sc);
+                case 2 -> AdminListEmployeeCase.execute(admin);
+                case 3 -> AdminUpdateEmployeeCase.execute(admin, sc);
+                case 4 -> AdminDeleteEmployeeCase.execute(admin, sc);
+                case 5 -> AdminAddSaleCase.execute(admin, sc);
+                case 6 -> AdminShowTotalSalesCase.execute(admin);
+                case 7 -> AdminPayEmployeeCase.execute(admin, sc);
+                case 8 -> AdminShowCurrentBalanceCase.execute(admin);
+                case 9 -> { AdminExitCase.execute(); return; }
                 default -> System.out.println("   Opción no reconocida. ⚠️");
             }
         }
