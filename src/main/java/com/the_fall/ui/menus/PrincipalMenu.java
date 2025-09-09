@@ -40,7 +40,7 @@ public class PrincipalMenu implements IMenu {
             List<Integer> opcionesValidas = List.of(1, 2, 3);
 
             if (!Validators.readValidOption(opcionesValidas, input)) {
-                System.out.println("❌ Opción inválida, intente de nuevo.\n");
+                System.out.println("\n   Opción inválida, intente de nuevo. ❌\n");
                 continue;
             }
 
@@ -50,10 +50,10 @@ public class PrincipalMenu implements IMenu {
                 case 1 -> new AdminMenu(admin).handle();
                 case 2 -> handleEmployeeLogin();
                 case 3 -> {
-                    System.out.println("👋 Saliendo del sistema...");
+                    System.out.println("   Saliendo del sistema... 👋 ");
                     return;
                 }
-                default -> System.out.println("⚠️ Opción no reconocida.");
+                default -> System.out.println("   Opción no reconocida. ⚠️");
             }
         }
     }
@@ -63,33 +63,33 @@ public class PrincipalMenu implements IMenu {
         final int maxAttempts = 3;
         
         while (attempts < maxAttempts) {
-            System.out.println("\n=== INICIO DE SESIÓN EMPLEADO ===");
-            System.out.print("Ingrese ID de empleado: ");
+            System.out.println("\n=== INICIO DE SESIÓN EMPLEADO ===\n");
+            System.out.print("   Ingrese ID de empleado: ");
             String idInput = sc.nextLine();
             
             if (!Validators.readValidInt(idInput)) {
-                System.out.println("❌ ID inválido, debe ser un número entero.");
+                System.out.println("   ID inválido, debe ser un número entero. ❌");
                 attempts++;
                 continue;
             }
             
             int id = Integer.parseInt(idInput);
-            System.out.print("Ingrese contraseña: ");
+            System.out.print("   Ingrese contraseña: ");
             String password = sc.nextLine();
             
             // Autenticar empleado
             Employee authenticatedEmployee = admin.authenticateEmployee(id, password);
             
             if (authenticatedEmployee != null) {
-                System.out.println("✅ Inicio de sesión exitoso. Bienvenido " + authenticatedEmployee.getName());
+                System.out.println("   Inicio de sesión exitoso. Bienvenido " + authenticatedEmployee.getName() + " ✅\n" );
                 new EmployeeMenu(authenticatedEmployee).handle();
                 break;
             } else {
                 attempts++;
-                System.out.println("❌ Credenciales incorrectas. Intentos restantes: " + (maxAttempts - attempts));
+                System.out.println("   \nCredenciales incorrectas. Intentos restantes: " + (maxAttempts - attempts) + " ❌");
                 
                 if (attempts >= maxAttempts) {
-                    System.out.println("🚫 Demasiados intentos fallidos. Volviendo al menú principal.");
+                    System.out.println("   Demasiados intentos fallidos. Volviendo al menú principal. 🚫");
                     break;
                 }
             }

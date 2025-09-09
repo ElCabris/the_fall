@@ -36,34 +36,34 @@ public class EmployeeMenu implements IMenu {
             List<Integer> opcionesValidas = List.of(1, 2, 3);
 
             if (!Validators.readValidOption(opcionesValidas, input)) {
-                System.out.println("❌ Opción inválida, intente de nuevo.\n");
+                System.out.println("   Opción inválida, intente de nuevo. ❌\n");
                 continue;
             }
 
             int opcion = Integer.parseInt(input);
 
             switch (opcion) {
-                case 1 -> System.out.println("💰 Saldo actual: " + employee.getBalace());
+                case 1 -> System.out.println("   Saldo actual: " + employee.getBalace() + " 💰");
                 case 2 -> {
-                    System.out.print("Ingrese monto a retirar: ");
+                    System.out.print("   Ingrese monto a retirar: ");
                     String valueInput = sc.nextLine();
                     if (Validators.readValidDouble(valueInput)) {
                         double value = Double.parseDouble(valueInput);
                         try {
                             employee.wethdrawBalance(value);
-                            System.out.println("✅ Retiro exitoso. Nuevo saldo: " + employee.getBalace());
+                            System.out.println("   Retiro exitoso. Nuevo saldo: " + employee.getBalace() + " ✅");
                         } catch (IllegalArgumentException e) {
-                            System.out.println("❌ " + e.getMessage());
+                            System.out.println(e.getMessage() + " ❌");
                         }
                     } else {
-                        System.out.println("❌ Monto inválido.");
+                        System.out.println("   Monto inválido. ❌");
                     }
                 }
                 case 3 -> {
-                    System.out.println("\nSaliendo del menú empleado... 👋 ");
+                    System.out.println("\n   Saliendo del menú empleado... 👋 ");
                     return;
                 }
-                default -> System.out.println("⚠️ Opción no reconocida.");
+                default -> System.out.println("   Opción no reconocida. ⚠️");
             }
         }
     }
